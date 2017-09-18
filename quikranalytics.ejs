@@ -1,0 +1,69 @@
+<div class = 'row' style = 'margin-top:0px!important'>
+  <div class = 'col-xs-12 text-center quikr-overlay' style='color:#ffffff;padding-bottom:10px;'>
+    <div class = 'image-overlay'>
+      <h4 style='margin-bottom:0px;margin-top:25px;font-size:150%'> Ads Posted 10 </h4>
+      <h4 style='font-size:150%'> Total Views <%= data.total_views %></h4>
+      <p style = 'margin-bottom:20px;font-size:85%'> (A view is captured when someone searches on Quikr and clicks on your ad from the search results) </p>
+    </div>
+      <img src=<%= data.cover_picture%> height='210px' >
+  </div>
+</div>
+<% _.each(data.data,function(adData) { %>
+  <% if (adData.status === 'success') { %>
+    <div class = 'quikr-card' style = 'margin-top:10px;color:#ababab'>
+      <div class = 'row' style = 'padding-top:10px'>
+        <div class = 'col-xs-3 quikr-image p-r-zero p-l-zero'>
+          <% if (!_.isEmpty(adData.data.picture)) { %>
+            <img src=<%= adData.data.picture %> height='75' width='75' >
+          <% }%>
+        </div>
+        <div class = 'col-xs-6' style = 'font-size:0.8em'>
+          <p class = 'm-zero cut-overflow'><strong> <%= adData.data.message.split('.')[0] %></strong></p>
+          <p class = 'm-zero line-clamp'> <%= adData.data.message %></p>
+        </div>
+        <div class = 'col-xs-3' style = 'padding-right:5px;text-align:right'>
+          <p class = 'm-zero' style = 'color:#02a20e'><strong> Success </strong></p>
+          <p class = 'm-zero' style= 'font-size:80%'> Views: <%= adData.views%></p>
+        </div>
+      </div> 
+      <div class = 'row' style = "font-size:70%;padding-bottom:10px">
+        <div class = 'col-xs-4 p-r-zero'>
+          <p class = 'm-zero'> Ad Id: <%= adData.adId %></p>
+        </div>
+        <div class = 'col-xs-4 text-center p-r-zero p-l-zero'>
+          <p class = 'm-zero'> Posted on: <%= adData.created_on.getDate() +'/'+ adData.created_on.getMonth() +'/'+ adData.created_on.getFullYear() %></p>
+        </div>
+        <div class = 'col-xs-4 text-center' style = 'padding-right:5px;padding-left:0px'>
+          <p class = 'm-zero'> Expires on: <%= adData.expires_on.getDate() +'/'+ adData.expires_on.getMonth() +'/'+ adData.expires_on.getFullYear() %></p>
+        </div>
+      </div>
+    </div>
+  <% } else if (adData.status === 'failure') { %>
+    <div class = 'quikr-card' style = 'margin-top:10px;color:#ababab'>
+      <div class = 'row' style = 'padding-top:10px'>
+        <div class = 'col-xs-3 quikr-image'>
+          <% if (!_.isEmpty(adData.data.picture)) { %>
+            <img src=<%= adData.data.picture %> height='75' width='75' >
+          <% } %>
+        </div>
+        <div class = 'col-xs-6' style = 'padding-top:20px'>
+          <p class = 'm-zero cut-overflow'><strong> <%= adData.data.message.split('.')[0] %></strong></p>
+          <p class = 'm-zero cut-overflow'> <%= adData.data.message %></p>
+        </div>
+        <div class = 'col-xs-3' style = 'padding-right:5px;text-align:right'>
+          <p class = 'm-zero cut-overflow' style = 'color:#c14e0f'><strong>Failed</strong></p>
+        </div>
+      </div> 
+      <div class = 'row' style = "font-size:70%;padding-bottom:10px">
+        <div class = 'col-xs-3  p-r-zero'>
+          <p class = 'm-zero'> <%= adData.created_on.getDate() +'/'+ adData.created_on.getMonth() +'/'+ adData.created_on.getFullYear() %></p>
+        </div>
+        <div class = 'col-xs-9 p-r-zero'>
+          <p class = 'm-zero'> Rejected: <%= adData.message %></p>
+        </div>
+      </div>
+    </div>
+
+  <% }%>
+
+<% })  %>
